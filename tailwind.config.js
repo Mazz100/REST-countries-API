@@ -13,6 +13,10 @@ export default {
         'light-theme-elements': '#ffffff' /*Very light gray*/,
         'dark-theme-elements': '#2b3945' /*Dark blue*/,
         'dark-theme-text': '#ffffff' /*White*/,
+      },
+
+      fontFamily: {
+        'Neunito-font': ['Nunito', 'sans-serif'],
       }
 
     },

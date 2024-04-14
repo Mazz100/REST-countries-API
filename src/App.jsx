@@ -4,20 +4,22 @@ import CountriesSearchField from './CountrySearchField'
 
 function App() {
 
-
   return (
     <>
-      <header>
-        <NavBar />
-      </header>
-      <main className=''>
-        <CountriesSearchField />
-      </main>
+      <div className='min-h-screen flex flex-col bg-light-theme-background font-Neunito-font'>
+        <header>
+          <NavBar />
+        </header>
+        <main className=''>
+          <CountriesSearchField />
+        </main>
 
-      <footer>
+        <footer>
 
-      </footer>
+        </footer>
+      </div>
     </>
+
   )
 }
 
