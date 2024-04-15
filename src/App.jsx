@@ -1,6 +1,7 @@
 import './App.css'
-import NavBar from './NavBar'
+import HeaderPanel from './HeaderPanel'
 import CountriesSearchField from './CountrySearchField'
+import FilterRegion from './FilterRegion'
 
 function App() {
 
@@ -8,10 +9,11 @@ function App() {
     <>
       <div className='min-h-screen flex flex-col bg-light-theme-background font-Neunito-font'>
         <header>
-          <NavBar />
+          <HeaderPanel />
         </header>
         <main className=''>
           <CountriesSearchField />
+          <FilterRegion />
         </main>
 
         <footer>

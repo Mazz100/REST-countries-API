@@ -9,8 +9,13 @@ function CountriesSearchField() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
 
-                <input className="w-full p-2 py-4 text-lg placeholder:opacity-70 hover:bg-gray-100 focus:outline-none transition-colors" type="search" placeholder="Search for a country" />
+                <label className="sr-only" htmlFor="search-country">Search bar</label>
+                <input className="w-full p-2 py-4 text-lg placeholder:opacity-70 focus:outline-none transition-colors"
+                    type="search"
+                    placeholder="Search for a country" 
+                    id="search-country"/>
             </div>
+
         </form>
     );
 }
