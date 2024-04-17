@@ -2,6 +2,7 @@ import './App.css'
 import HeaderPanel from './HeaderPanel'
 import CountriesSearchField from './CountrySearchField'
 import FilterRegion from './FilterRegion'
+import CountriesCard from './CountriesCard'
 
 function App() {
 
@@ -11,9 +12,10 @@ function App() {
         <header>
           <HeaderPanel />
         </header>
-        <main className=''>
+        <main className='flex flex-col'>
           <CountriesSearchField />
           <FilterRegion />
+          <CountriesCard />
         </main>
 
         <footer>
