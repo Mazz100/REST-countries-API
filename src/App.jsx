@@ -12,9 +12,11 @@ function App() {
         <header>
           <HeaderPanel />
         </header>
-        <main className='flex flex-col'>
-          <CountriesSearchField />
-          <FilterRegion />
+        <main className=''>
+          <div className='md:flex items-center justify-between'>
+            <CountriesSearchField />
+            <FilterRegion />
+          </div>
           <CountriesCard />
         </main>
 

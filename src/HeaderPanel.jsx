@@ -3,7 +3,7 @@
 function HeaderPanel() {
     return (
         <div className="flex justify-between items-center p-4 py-8 shadow-md bg-white">
-            <p className="font-bold text-lg text-light-theme-text">
+            <p className="font-bold text-lg text-balance text-light-theme-text">
                 <a href="">
                     Where in the world?
                 </a>

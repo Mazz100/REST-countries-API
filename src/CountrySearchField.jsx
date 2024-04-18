@@ -10,10 +10,10 @@ function CountriesSearchField() {
                 </svg>
 
                 <label className="sr-only" htmlFor="searchCountry">Search bar</label>
-                <input className="w-full p-2 py-4 text-lg md:hover:bg-gray-100 lg:hover:bg-gray-100 placeholder:opacity-70 focus:outline-none transition-colors"
+                <input className="p-2 py-4 text-lg md:w-[360px] lg:w-[640px] lg:hover:bg-gray-100 placeholder:opacity-70 focus:outline-none transition-colors"
                     type="search"
-                    placeholder="Search for a country" 
-                    id="searchCountry"/>
+                    placeholder="Search for a country"
+                    id="searchCountry" />
             </div>
 
         </form>
