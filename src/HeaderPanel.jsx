@@ -1,16 +1,14 @@
-
+import { Link } from "react-router-dom";
 
 function HeaderPanel() {
     return (
-        <div className="flex justify-between items-center p-4 py-8 shadow-md bg-white">
-            <p className="font-bold text-lg text-balance text-light-theme-text">
-                <a href="">
-                    Where in the world?
-                </a>
+        <div className="flex justify-between items-center p-4 py-8 shadow-sm bg-white">
+            <p className="font-bold text-lg text-balance text-light-theme-text md:ml-10">
+                <Link to='/'>Where in the world?</Link>
             </p>
 
             <button
-                className="flex items-center font-semibold ml-2"
+                className="flex items-center font-semibold ml-2 md:mr-10"
                 aria-pressed="false"
                 >
                 <svg className="w-6 h-6 mx-3" aria-hidden="true"
