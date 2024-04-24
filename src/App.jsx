@@ -22,10 +22,6 @@ function App() {
           </div>
           <CountriesCard />
         </main>
-
-        <footer>
-
-        </footer>
       </div>
 
   )

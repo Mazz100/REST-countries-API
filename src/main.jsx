@@ -4,13 +4,15 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import NotFoundPage from './Pages/NotFoundPage.jsx'
-import CountryDetail from './Pages/CountryDetail.jsx'
+import CountryDetail, { countryDetailsLoader } from './Pages/CountryDetail.jsx'
+import { CountriesLoader } from './CountriesCard.jsx'
 
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    loader: CountriesLoader,
     errorElement: <NotFoundPage />,
   },
 
@@ -22,7 +24,8 @@ const router = createBrowserRouter([
   {
     path: `/Details/:countryId`,
     element: <CountryDetail />,
-
+    errorElement: <NotFoundPage />,
+    loader: countryDetailsLoader,
   },
 
 
