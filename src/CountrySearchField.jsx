@@ -1,6 +1,40 @@
+import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 
 function CountriesSearchField() {
+    const [searchParams, setSearchParams] = useSearchParams({ country: "" });
+
+
+    const country = searchParams.get('country');
+
+
+    async function searchCountry() {
+        try {
+
+            const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+
+            if (!response.ok) {
+                throw new Error('Could not load resource!');
+            }
+
+            const results = await response.json();
+
+            console.log(results);
+
+
+
+        }
+
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    useEffect(() => {
+        searchCountry();
+    }, [country])
 
     return (
         <form>
@@ -11,9 +45,17 @@ function CountriesSearchField() {
 
                 <label className="sr-only" htmlFor="searchCountry">Search bar</label>
                 <input className="p-2 py-4 text-lg md:w-[240px] lg:w-[520px] lg:hover:bg-gray-100 placeholder:opacity-70 focus:outline-none transition-colors"
-                    type="search"
+                    type="text"
                     placeholder="Search for a country"
-                    id="searchCountry" />
+                    id="searchCountry"
+                    value={country}
+                    onChange={(e) => setSearchParams(prev => {
+                        prev.set('country', e.target.value);
+                        return prev;
+                    }, {
+                        replace: true,//this removes all params at once when pressing back
+                    })}
+                />
             </div>
 
         </form>
