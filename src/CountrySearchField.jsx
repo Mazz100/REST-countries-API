@@ -1,40 +1,31 @@
-import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
-function CountriesSearchField() {
-    const [searchParams, setSearchParams] = useSearchParams({ country: "" });
+function CountriesSearchField({ setSearchParams, searchParams, searchCountry }) {
 
+    const navigate = useNavigate();
 
-    const country = searchParams.get('country');
+    const handleSearchInput = (e) => {
+        e.preventDefault();
 
+        //Updater function that adds value relatively
+        setSearchParams(prev => {
+            prev.set('country', e.target.value);
+            return prev
 
-    async function searchCountry() {
-        try {
+        }, {
+            replace: true,
+        })
 
-            const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
-
-            if (!response.ok) {
-                throw new Error('Could not load resource!');
-            }
-
-            const results = await response.json();
-
-            console.log(results);
-
-
-
-        }
-
-        catch (error) {
-            console.error(error);
-        }
     }
 
-
     useEffect(() => {
-        searchCountry();
-    }, [country])
+        if (searchCountry === '' && searchParams.has('country')) {
+
+            navigate('/'); //Programatically control the URL path if search filed is empty
+        }
+    }, [searchCountry])
 
     return (
         <form>
@@ -45,21 +36,16 @@ function CountriesSearchField() {
 
                 <label className="sr-only" htmlFor="searchCountry">Search bar</label>
                 <input className="p-2 py-4 text-lg md:w-[240px] lg:w-[520px] lg:hover:bg-gray-100 placeholder:opacity-70 focus:outline-none transition-colors"
-                    type="text"
+                    type="search"
                     placeholder="Search for a country"
                     id="searchCountry"
-                    value={country}
-                    onChange={(e) => setSearchParams(prev => {
-                        prev.set('country', e.target.value);
-                        return prev;
-                    }, {
-                        replace: true,//this removes all params at once when pressing back
-                    })}
+                    defaultValue={searchCountry}
+                    onChange={handleSearchInput}
                 />
             </div>
 
         </form>
     );
-}
 
+}
 export default CountriesSearchField
