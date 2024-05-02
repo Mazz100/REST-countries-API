@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 
 function CountriesSearchField({ setSearchParams, searchParams, searchCountry }) {
-
-    const navigate = useNavigate();
+    
 
     const handleSearchInput = (e) => {
         e.preventDefault();
@@ -18,13 +17,17 @@ function CountriesSearchField({ setSearchParams, searchParams, searchCountry }) 
             replace: true,
         })
 
+
     }
 
     useEffect(() => {
-        if (searchCountry === '' && searchParams.has('country')) {
 
-            navigate('/'); //Programatically control the URL path if search filed is empty
+        if (searchParams.has('country') && searchCountry == '') {
+            searchParams.delete('country');
+            setSearchParams(searchParams);
         }
+
+
     }, [searchCountry])
 
     return (

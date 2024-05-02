@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 
 
-function CountriesCard({ searchParams, searchCountry }) {
+function CountriesCard({ searchCountry, filterRegion }) {
 
     const countriesData = useLoaderData();
 
@@ -17,8 +17,12 @@ function CountriesCard({ searchParams, searchCountry }) {
     }))
 
     //Storing the list 
-    const countryList = displayCountries.filter(countryName => countryName.name.toLowerCase().includes(searchCountry /*Ensures field is not empty*/ && searchCountry.toLowerCase()) ||
-        !searchCountry).map(country => {
+    const countryList = displayCountries
+        .filter(countryRegion => countryRegion.region.toLowerCase().includes(filterRegion && filterRegion.toLowerCase()) || !filterRegion)
+
+        .filter(countryName => countryName.name.toLowerCase().includes(searchCountry && searchCountry.toLowerCase()) || !searchCountry)
+
+        .map(country => {
             return <li className="bg-white mb-10 md:mb-0 max-w-[18.75rem] shadow-md rounded-md overflow-hidden hover:shadow-lg cursor-pointer will-change-transform focus:border-2 focus-visible:border-black hover:-translate-y-4 transition-[transform]"//This li acts as a card for each country
                 key={country.flags} >
                 <Link to={`/Details/${country.name}`}>

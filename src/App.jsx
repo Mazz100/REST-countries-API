@@ -9,9 +9,11 @@ import React, { useState } from 'react'
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams({ country: "" });
+  const [regionParam, setRegionParam] = useSearchParams({ region: "" });
 
 
-  const searchCountry = searchParams.get('country');
+  let searchCountry = searchParams.get('country');
+  let filterRegion = regionParam.get('region');
 
 
   return (
@@ -24,9 +26,9 @@ function App() {
         <h1 className='sr-only'>Rest Countries API</h1>
         <div className='md:flex items-center justify-between'>
           <CountriesSearchField searchParams={searchParams} setSearchParams={setSearchParams} searchCountry={searchCountry} />
-          <FilterRegion />
+          <FilterRegion setRegionParam={setRegionParam} regionParam={regionParam} filterRegion={filterRegion} />
         </div>
-        <CountriesCard searchParams={searchParams} searchCountry={searchCountry} />
+        <CountriesCard searchCountry={searchCountry} filterRegion={filterRegion} />
 
         <button className='fixed bottom-0 left-0 transform translate-x-1/2 bg-white shadow-md p-4 mb-6 rounded-full hover:scale-105 transition-transform'
           aria-label='scroll to top button'

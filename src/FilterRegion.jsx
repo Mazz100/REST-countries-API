@@ -1,6 +1,9 @@
 import * as Select from '@radix-ui/react-select'
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-function FilterRegion() {
+
+function FilterRegion({setRegionParam, regionParam, filterRegion}) {
     const regionList = [
         { id: 1, value: 'Africa' },
         { id: 2, value: 'America' },
@@ -9,10 +12,41 @@ function FilterRegion() {
         { id: 5, value: 'Oceania' },
     ]
 
+    useEffect(() => {
+        console.log(filterRegion);
+
+        if(isNaN(filterRegion)){
+            console.log('Null');
+        }
+    })
+
     return (
-        <form>
-            <Select.Root>
-                <Select.Trigger className='bg-white shadow-md p-4 pl-6 mx-6 rounded-md inline-flex items-center'
+        <form className='inline-flex items-center'>
+            <Select.Root name='region filter list' defaultValue={filterRegion} onValueChange={(value) => setRegionParam(r => {
+
+                r.set('region', value);
+                return r
+            }, { replace: true })}>
+
+                {filterRegion && <button
+                    type='button'
+                    aria-label='Remove filter'
+                    onClick={() => {
+
+                        regionParam.delete('region');
+                        setRegionParam(regionParam);
+                       
+                    }}
+                    className='bg-white shadow-md p-2 mx-3 md:mx-0 rounded-full hover:bg-gray-200 transform hover:scale-105 transition-all'>
+
+                    <svg className="w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+
+                </button>}
+
+                <Select.Trigger className='bg-white inline-flex items-center shadow-md p-4 mx-6 rounded-md'
                     aria-label='Filter by Region' >
                     <Select.Value className='font-semibold'
                         placeholder="Filter by Region" />
@@ -23,12 +57,15 @@ function FilterRegion() {
                 </Select.Trigger>
 
                 <Select.Portal>
-                    <Select.Content className='bg-white shadow-md rounded-lg overflow-hidden'>
-                        <Select.ScrollUpButton />
-                        <Select.Viewport className='hover:cursor-default p-4 pl-6 text-lg'>
+                    <Select.Content
+                        position='popper'
+                        sideOffset={5}
+                        className='bg-white shadow-md rounded-lg p-2 overflow-hidden transform max-h-[--radix-select-content-available-height ] w-[--radix-select-trigger-width]'>
+                        <Select.Viewport className='hover:cursor-default text-lg'>
 
                             {regionList.map(regions =>
-                                <Select.Item key={regions.id} className='flex items-center justify-between px-2 rounded-lg data-[highlighted]:bg-gray-100 data-[highlighted]:outline-none'
+                                <Select.Item key={regions.id}
+                                    className='flex items-center p-1 justify-between rounded-lg data-[highlighted]:bg-gray-100 data-[highlighted]:outline-none transition-colors'
                                     value={regions.value}>
 
                                     <Select.ItemText >
@@ -47,12 +84,11 @@ function FilterRegion() {
                                 </Select.Item>)}
 
                         </Select.Viewport>
-                        <Select.ScrollDownButton />
                         <Select.Arrow />
                     </Select.Content>
                 </Select.Portal>
             </Select.Root>
-        </form>
+        </form >
     );
 }
 
