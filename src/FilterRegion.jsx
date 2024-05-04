@@ -1,9 +1,9 @@
 import * as Select from '@radix-ui/react-select'
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 
-function FilterRegion({setRegionParam, regionParam, filterRegion}) {
+function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
+
     const regionList = [
         { id: 1, value: 'Africa' },
         { id: 2, value: 'America' },
@@ -12,30 +12,23 @@ function FilterRegion({setRegionParam, regionParam, filterRegion}) {
         { id: 5, value: 'Oceania' },
     ]
 
-    useEffect(() => {
-        console.log(filterRegion);
-
-        if(isNaN(filterRegion)){
-            console.log('Null');
-        }
-    })
 
     return (
         <form className='inline-flex items-center'>
-            <Select.Root name='region filter list' defaultValue={filterRegion} onValueChange={(value) => setRegionParam(r => {
+            <Select.Root name='region filter list'
+                value={filterRegion || ''}
+                onValueChange={(value) => setRegionParam(r => {
 
-                r.set('region', value);
-                return r
-            }, { replace: true })}>
+                    r.set('region', value);
+                    return r
+                }, { replace: true })}>
 
                 {filterRegion && <button
                     type='button'
-                    aria-label='Remove filter'
+                    aria-label='Delete Filter'
                     onClick={() => {
-
                         regionParam.delete('region');
                         setRegionParam(regionParam);
-                       
                     }}
                     className='bg-white shadow-md p-2 mx-3 md:mx-0 rounded-full hover:bg-gray-200 transform hover:scale-105 transition-all'>
 
@@ -46,12 +39,11 @@ function FilterRegion({setRegionParam, regionParam, filterRegion}) {
 
                 </button>}
 
-                <Select.Trigger className='bg-white inline-flex items-center shadow-md p-4 mx-6 rounded-md'
-                    aria-label='Filter by Region' >
+                <Select.Trigger className='bg-white inline-flex items-center shadow-md p-5 mx-6 rounded-md'>
                     <Select.Value className='font-semibold'
                         placeholder="Filter by Region" />
 
-                    <svg className="w-4 ml-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                    <svg className="w-4 ml-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" >
                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
                 </Select.Trigger>
@@ -60,7 +52,7 @@ function FilterRegion({setRegionParam, regionParam, filterRegion}) {
                     <Select.Content
                         position='popper'
                         sideOffset={5}
-                        className='bg-white shadow-md rounded-lg p-2 overflow-hidden transform max-h-[--radix-select-content-available-height ] w-[--radix-select-trigger-width]'>
+                        className='bg-white shadow-md rounded-lg p-4 overflow-hidden transform  max-h-[--radix-select-content-available-height ] w-[--radix-select-trigger-width]'>
                         <Select.Viewport className='hover:cursor-default text-lg'>
 
                             {regionList.map(regions =>
@@ -68,7 +60,7 @@ function FilterRegion({setRegionParam, regionParam, filterRegion}) {
                                     className='flex items-center p-1 justify-between rounded-lg data-[highlighted]:bg-gray-100 data-[highlighted]:outline-none transition-colors'
                                     value={regions.value}>
 
-                                    <Select.ItemText >
+                                    <Select.ItemText aria-label={regions.value}>
                                         {regions.value}
                                     </Select.ItemText>
 

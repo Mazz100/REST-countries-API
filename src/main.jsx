@@ -6,7 +6,6 @@ import './index.css'
 import NotFoundPage from './Pages/NotFoundPage.jsx'
 import CountryDetail, { countryDetailsLoader } from './Pages/CountryDetail.jsx'
 import { CountriesLoader } from './CountriesCard.jsx'
-import CountriesSearchField from './CountrySearchField.jsx'
 
 
 const router = createBrowserRouter([

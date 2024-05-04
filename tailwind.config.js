@@ -17,10 +17,9 @@ export default {
 
       fontFamily: {
         'Neunito-font': ['Nunito', 'sans-serif'],
-      }
-
+      },
+      
     },
-  },
-  plugins: [],
+    plugins: [],
+  }
 }
-
