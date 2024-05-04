@@ -18,11 +18,11 @@ function App() {
 
   return (
 
-    <div className='min-h-screen flex flex-col bg-light-theme-background font-Neunito-font'>
-      <header className=''>
+    <div className='min-h-screen flex flex-col bg-light-theme-background dark:bg-dark-theme-background text-light-theme-text dark:text-dark-theme-text font-Neunito-font'>
+      <header>
         <HeaderPanel />
       </header>
-      <main className='md:mx-10'>
+      <main className='md:mx-10 lg:mx-20'>
         <h1 className='sr-only'>Rest Countries API</h1>
         <div className='md:flex items-center justify-between'>
           <CountriesSearchField searchParams={searchParams} setSearchParams={setSearchParams} searchCountry={searchCountry} />
@@ -30,7 +30,7 @@ function App() {
         </div>
         <CountriesCard searchCountry={searchCountry} filterRegion={filterRegion} />
 
-        <button className='fixed bottom-0 left-0 transform translate-x-1/2 bg-white shadow-md p-4 mb-6 rounded-full hover:scale-105 transition-transform'
+        <button className='fixed bottom-0 left-0 transform translate-x-1/2 bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-4 mb-6 rounded-full hover:scale-105 transition-transform'
           aria-label='scroll to top button'
           onClick={() => window.scrollTo({
             top: 0,

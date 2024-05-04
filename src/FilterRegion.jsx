@@ -30,7 +30,7 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
                         regionParam.delete('region');
                         setRegionParam(regionParam);
                     }}
-                    className='bg-white shadow-md p-2 mx-3 md:mx-0 rounded-full hover:bg-gray-200 transform hover:scale-105 transition-all'>
+                    className='bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2 mx-3 md:mx-0 rounded-full transform hover:scale-105 transition-all'>
 
                     <svg className="w-6 h-6"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -39,7 +39,7 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
 
                 </button>}
 
-                <Select.Trigger className='bg-white inline-flex items-center shadow-md p-5 mx-6 rounded-md'>
+                <Select.Trigger className='bg-light-theme-elements dark:bg-dark-theme-elements inline-flex items-center shadow-md p-5 mx-6 rounded-md'>
                     <Select.Value className='font-semibold'
                         placeholder="Filter by Region" />
 
@@ -52,12 +52,12 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
                     <Select.Content
                         position='popper'
                         sideOffset={5}
-                        className='bg-white shadow-md rounded-lg p-4 overflow-hidden transform  max-h-[--radix-select-content-available-height ] w-[--radix-select-trigger-width]'>
+                        className='bg-light-theme-elements dark:bg-dark-theme-elements dark:text-dark-theme-text shadow-md rounded-lg p-4 overflow-hidden transform  max-h-[--radix-select-content-available-height ] w-[--radix-select-trigger-width]'>
                         <Select.Viewport className='hover:cursor-default text-lg'>
 
                             {regionList.map(regions =>
                                 <Select.Item key={regions.id}
-                                    className='flex items-center p-1 justify-between rounded-lg data-[highlighted]:bg-gray-100 data-[highlighted]:outline-none transition-colors'
+                                    className='flex items-center p-1 justify-between rounded-lg data-[highlighted]:bg-gray-100 dark:data-[highlighted]:bg-slate-700 data-[highlighted]:outline-none transition-colors'
                                     value={regions.value}>
 
                                     <Select.ItemText aria-label={regions.value}>
@@ -65,7 +65,7 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
                                     </Select.ItemText>
 
                                     <Select.ItemIndicator>
-                                        <svg className='' width="15" height="15"
+                                        <svg className='' width="15" height="15" aria-hidden='true'
                                             viewBox="0 0 15 15"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"

@@ -29,7 +29,7 @@ export default function CountryDetail() {
 
 
     return (
-        <div className='min-h-screen flex flex-col bg-light-theme-background font-Neunito-font'>
+        <div className='min-h-screen flex flex-col bg-light-theme-background dark:bg-dark-theme-background text-light-theme-text dark:text-dark-theme-text font-Neunito-font'>
             <header className=''>
                 <HeaderPanel />
             </header>
@@ -40,7 +40,7 @@ export default function CountryDetail() {
                     <div className="lg:grid lg:grid-cols-3 lg:grid-rows-1 lg:gap-4 lg:place-items-center lg:place-content-center"
                         key={country.flags}>
 
-                        <Link to="/" className="inline-flex gap-4 self-start bg-white shadow-md p-2 mt-5 rounded-sm px-6 lg:place-self-start">
+                        <Link to="/" className="inline-flex gap-4 self-start bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2 mt-5 rounded-sm px-6 lg:place-self-start">
                             <svg className="w-6 h-6"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
@@ -97,7 +97,7 @@ export default function CountryDetail() {
                             <h2 className="text-lg mb-2">Border Countries:</h2>
 
                             {country.borders.map(border =>
-                                <Link className="bg-white shadow-md p-2"
+                                <Link className="bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2"
                                     key={border}
                                     to={`/Details/${border}`}>
                                     {border}
