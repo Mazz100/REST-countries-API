@@ -4,7 +4,7 @@ import CountriesSearchField from './CountrySearchField'
 import FilterRegion from './FilterRegion'
 import CountriesCard from './CountriesCard'
 import { useSearchParams } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 function App() {
@@ -14,6 +14,20 @@ function App() {
 
   let searchCountry = searchParams.get('country');
   let filterRegion = regionParam.get('region');
+
+  const [isScroll, setIsScroll] = useState('');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScroll(window.scrollY > 0);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [])
 
 
   return (
@@ -30,7 +44,7 @@ function App() {
         </div>
         <CountriesCard searchCountry={searchCountry} filterRegion={filterRegion} />
 
-        <button className='fixed bottom-0 left-0 transform translate-x-1/2 bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-4 mb-6 rounded-full hover:scale-105 transition-transform'
+        {isScroll && <button className='fixed bottom-0 left-0 transform translate-x-1/2 bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-4 mb-6 rounded-full hover:scale-105 transition-transform'
           aria-label='scroll to top button'
           onClick={() => window.scrollTo({
             top: 0,
@@ -40,7 +54,7 @@ function App() {
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
           </svg>
-        </button>
+        </button>}
       </main>
     </div>
 

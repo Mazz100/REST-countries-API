@@ -21,12 +21,12 @@ function HeaderPanel() {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            console.log('dark');
+      
         }
         else {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            console.log('light');
+          
         }
 
     }, [theme])

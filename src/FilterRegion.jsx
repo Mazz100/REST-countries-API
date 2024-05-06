@@ -16,6 +16,7 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
     return (
         <form className='inline-flex items-center'>
             <Select.Root name='region filter list'
+
                 value={filterRegion || ''}
                 onValueChange={(value) => setRegionParam(r => {
 

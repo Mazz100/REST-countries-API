@@ -111,7 +111,7 @@ export default function CountryDetail() {
             <footer className="text-center text-balance p-4">
                 <p className="text-sm">
                     Challenge by <a className="text-blue-700" href="frontendmentor.io">Frontend Mentor.
-                    </a> coded by <a className="text-blue-700" href="#">Mazen Hassan.</a>
+                    </a> coded by <a className="text-blue-700" href="https://github.com/Mazz100">Mazen Hassan.</a>
                 </p>
             </footer>
         </div >
@@ -122,23 +122,16 @@ export default function CountryDetail() {
 
 //Exporting an asyc function loader and use it inside react router path
 
-export const countryDetailsLoader = async ({ params }) => {
+export const countryDetailsLoader = ({ params }) => {
     const { countryId } = params;
 
-    try {
-        const response = await fetch(`https://restcountries.com/v3.1/name/${countryId}?fullText=true&fields=flags,name,nativeName,population,region,subregion,capital,tld,currencies,languages,borders`);
+    return new Promise((resolve, reject) => {
+        fetch(`https://restcountries.com/v3.1/name/${countryId}?fullText=true&fields=flags,name,nativeName,population,region,subregion,capital,tld,currencies,languages,borders`)
+            .then((res) => res.json())
+            .then(data => resolve(data))
+            .catch((err) => console.log(`ERROR: ${err}`))
+    })
 
-        if (!response.ok) {
-            throw new Error('Could not load resource!');
-        }
 
-        return response.json();
-
-    }
-
-    catch (error) {
-        console.error(error);
-    }
 }
-
 
