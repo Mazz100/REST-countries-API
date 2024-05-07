@@ -39,13 +39,13 @@ function HeaderPanel() {
     }
 
     return (
-        <div className="flex justify-between items-center p-4 py-8 md:px-8 shadow-sm bg-light-theme-elements dark:bg-dark-theme-elements">
+        <div className="flex justify-between items-center p-4 py-8 md:px-12 shadow-sm bg-light-theme-elements dark:bg-dark-theme-elements">
             <p className="font-bold text-lg text-balance">
                 <Link to='/'>Where in the world?</Link>
             </p>
 
             <button
-                className="flex items-center font-semibold ml-2"
+                className="flex items-center ml-2"
                 aria-pressed={theme == 'light' ? 'false' : 'true'}
                 onClick={handleThemeSwitcher}
             >

@@ -31,9 +31,9 @@ function CountriesCard({ searchCountry, filterRegion }) {
 
                     <div className="p-6">
                         <h2 className="font-semibold text-xl py-2">{country.name}</h2>
-                        <p>Population:<span className="opacity-70 ml-2">{country.population}</span></p>
-                        <p>Region:<span className="opacity-70 ml-2">{country.region}</span></p>
-                        <p className="pb-12">Capital:<span className="opacity-70 ml-2">{country.capital}</span></p>
+                        <p>Population:<span className="opacity-70 ml-[2px]">{country.population}</span></p>
+                        <p>Region:<span className="opacity-70 ml-[2px]">{country.region}</span></p>
+                        <p className="pb-12">Capital:<span className="opacity-70 ml-[2px]">{country.capital}</span></p>
                     </div>
                 </Link>
             </li>
