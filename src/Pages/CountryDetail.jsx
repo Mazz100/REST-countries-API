@@ -1,14 +1,9 @@
-import { Link, useLoaderData } from "react-router-dom"
-import { useParams } from "react-router-dom";
 import HeaderPanel from "../HeaderPanel";
-import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom"
 
 export default function CountryDetail() {
-    const { countryId } = useParams();
 
-    const countriesData = useLoaderData();
-
-    console.log(countriesData.name, countriesData.capital, countriesData.region); // data values are undefined
+    const countryDetail = useLoaderData();
 
     return (
         <div className='min-h-screen flex flex-col bg-light-theme-background dark:bg-dark-theme-background text-light-theme-text dark:text-dark-theme-text font-Neunito-font'>
@@ -19,8 +14,7 @@ export default function CountryDetail() {
             <main className="flex flex-col justify-start items-center flex-1 mx-8 lg:mx-14 lg:mt-8">
 
 
-                <div className="lg:grid lg:grid-cols-3 lg:grid-rows-1 lg:gap-4 lg:place-items-center lg:place-content-center"
-                    key={countriesData.name}>
+                <div className="lg:grid lg:grid-cols-3 lg:grid-rows-1 lg:gap-4 lg:place-items-center lg:place-content-center">
 
                     <Link to="/" className="inline-flex gap-4 self-start bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2 mt-5 rounded-sm px-6 lg:place-self-start">
                         <svg className="w-6 h-6"
@@ -31,57 +25,61 @@ export default function CountryDetail() {
                         Back
                     </Link>
 
-                    <img className="my-10 w-full md:max-w-[820px] lg:col-start-1 row-span-3 lg:place-self-stretch" src={countriesData.flags} alt={!countriesData.flagAlt ? countriesData.flagAlt : countriesData.name} />
+                    <img className="my-10 w-full md:max-w-[820px] lg:col-start-1 row-span-3 lg:place-self-stretch" src={countryDetail.flags} alt={!countryDetail.flagAlt ? countryDetail.flagAlt : countryDetail.name} />
 
                     <div className="mb-6 flex flex-col gap-2 lg:mb-0 lg:col-start-2 lg:row-span-2">
-                        <h1 className="font-bold text-3xl mb-4">{countriesData.name}</h1>
+                        <h1 className="font-bold text-3xl mb-4">{countryDetail.name}</h1>
 
                         <p>
                             Native Name:
-                            <span className="opacity-60">{countriesData.nativeName}</span>
+                            <span className="opacity-60">{countryDetail.nativeName}</span>
                         </p>
                         <p>
                             Population:
-                            <span className="opacity-60"> {countriesData.population}</span>
+                            <span className="opacity-60"> {countryDetail.population}</span>
                         </p>
                         <p>
                             Region:
-                            <span className="opacity-60"> {countriesData.region}</span>
+                            <span className="opacity-60"> {countryDetail.region}</span>
                         </p>
                         <p>
                             Sub Region:
-                            <span className="opacity-60"> {countriesData.subRegion}</span>
+                            <span className="opacity-60"> {countryDetail.subRegion}</span>
                         </p>
                         <p>
                             Capital:
-                            <span className="opacity-60"> {countriesData.capital}</span>
+                            <span className="opacity-60"> {countryDetail.capital}</span>
                         </p>
                     </div>
 
                     <div className="mb-6 flex flex-col gap-2 lg:mb-0 lg:col-start-3 lg:row-span-2">
                         <p>
                             Top Level Domain:
-                            <span className="opacity-60"> {countriesData.topLevelDomain}</span>
+                            <span className="opacity-60"> {countryDetail.topLevelDomain}</span>
                         </p>
                         <p>
                             Currencies:
-                            <span className="opacity-60"> {countriesData.currency}</span>
+                            <span className="opacity-60"> {countryDetail.currency}</span>
                         </p>
                         <p>
                             Languages:
-                            <span className="opacity-60"> {countriesData.languages}</span>
+                            <span className="opacity-60"> {countryDetail.languages}</span>
                         </p>
                     </div>
 
 
-
                     <div className="flex flex-wrap gap-3 lg:items-center lg:col-start-2 lg:row-span-2 lg:place-content-center">
-                        <h2 className="text-lg mb-2">Border Countries:</h2>
+                        <h2 className="text-lg">Border Countries:</h2>
 
-                        <Link className="bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2"
-                            to={`/Details/${countriesData.name}`}>
-
-                        </Link>
+                        {countryDetail.borders ? countryDetail.borders.map((border) => (
+                            <Link key={border.code}
+                                className="bg-light-theme-elements dark:bg-dark-theme-elements shadow-md p-2"
+                                to={`/Details/${border.name}`}>
+                                {border.name}
+                            </Link>
+                        )) :
+                            <p>No border countries.</p>
+                        }
                     </div>
 
 
@@ -106,39 +104,44 @@ export const countryDetailsLoader = async ({ params }) => {
     const { countryId } = params;
 
     try {
-
-        const countryDetail = await fetch(`https://restcountries.com/v3.1/name/${countryId}?fullText=true&fields=flags,name,nativeName,population,region,subregion,capital,tld,currencies,languages,borders`)
+        // destructuring array for single object access
+        const [rawCountry] = await fetch(`https://restcountries.com/v3.1/name/${countryId}?fullText=true&fields=flags,name,nativeName,population,region,subregion,capital,tld,currencies,languages,borders`)
             .then(res => res.json())
-            .then(countriesData => countriesData.map(country => ({
-                flags: country.flags.svg,
-                flagAlt: country.flags.alt,
+
+
+        const borderQuery = rawCountry.borders.join(",")
+
+
+        //Extracting borders as an array of string then passing it to alpha API endpoint
+        const borders = borderQuery && await fetch(`https://restcountries.com/v3.1/alpha?codes=${borderQuery}`)
+            .then(res => res.json())
+            .then(countries => countries.map(country => ({
                 name: country.name.common,
-                nativeName: Object.entries(country.name.nativeName)
-                    //Mapping through nativeName values with unique key
-                    .map(([key, value]) => ` ${value.official}`)
-                    .join(', '),
-                population: country.population.toLocaleString(),
-                region: country.region,
-                subRegion: country.subregion,
-                topLevelDomain: country.tld,
-                capital: country.capital,
-                languages: Object.values(country.languages).join(', '),
-                capital: country.capital,
-                currency: Object.entries(country.currencies).map(([key, value]) =>
-                    `${value.name}`).join(', '),
-                borders: country.borders,
+                code: country.cca3,
             })))
 
+        //Mapping all country details using Destructured rawCountries assingment and borders mapping
+        const countryDetail = {
+            flags: rawCountry.flags.svg,
+            flagAlt: rawCountry.flags.alt,
+            name: rawCountry.name.common,
+            nativeName: Object.entries(rawCountry.name.nativeName)
+                //Mapping through nativeName values with unique key
+                .map(([key, value]) => ` ${value.official}`)
+                .join(', '),
+            population: rawCountry.population.toLocaleString(),
+            region: rawCountry.region,
+            subRegion: rawCountry.subregion,
+            topLevelDomain: rawCountry.tld,
+            capital: rawCountry.capital,
+            languages: Object.values(rawCountry.languages).join(', '),
+            capital: rawCountry.capital,
+            currency: Object.entries(rawCountry.currencies).map(([key, value]) =>
+                `${value.name}`).join(', '),
+            borders: borders,
+        }
 
-        const borderNamesQuery = countryDetail.map(country => country.borders).join(',') //alpha codes expect comma separator
-
-
-        const borderNames = borderNamesQuery && await fetch(`https://restcountries.com/v3.1/alpha?codes=${borderNamesQuery}?fields=name,cca3`)
-            .then(res => res.json())
-            .then(countries => countries.map(country => ({ name: country.name.common, code: country.cca3 })))
-
-
-        return [{ ...countryDetail, borderNames }]
+        return countryDetail
     }
 
 
