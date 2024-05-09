@@ -25,7 +25,7 @@ export default function CountryDetail() {
                         Back
                     </Link>
 
-                    <img className="my-10 w-full md:max-w-[820px] lg:col-start-1 row-span-3 lg:place-self-stretch" src={countryDetail.flags} alt={!countryDetail.flagAlt ? countryDetail.flagAlt : countryDetail.name} />
+                    <img className="my-10 w-full rounded-md md:max-w-[820px] lg:col-start-1 row-span-3 lg:place-self-stretch" src={countryDetail.flags} alt={!countryDetail.flagAlt ? countryDetail.flagAlt : countryDetail.name} />
 
                     <div className="mb-6 flex flex-col gap-2 lg:mb-0 lg:col-start-2 lg:row-span-2">
                         <h1 className="font-bold text-3xl mb-4">{countryDetail.name}</h1>

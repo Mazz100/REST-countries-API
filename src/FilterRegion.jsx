@@ -1,5 +1,5 @@
 import * as Select from '@radix-ui/react-select'
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 
 function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
@@ -12,10 +12,32 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
         { id: 5, value: 'Oceania' },
     ]
 
+    const [open, setOpen] = useState(false);
+    const timeRef = useRef(null);
+
+    //Function responsible for delaying popper open state to fix double tab bug
+    const handleOpenChange = () => {
+
+        if (!open) {
+            clearTimeout(timeRef.current);
+            setOpen(true);
+            console.log(`Timer is cleared: ${timeRef.current}`);
+        }
+        else {
+            console.log(`Timer is: ${timeRef.current}`);
+
+            timeRef.current = setTimeout(() => {
+                setOpen(false);
+
+            }, 50)
+        }
+    }
 
     return (
         <form className='inline-flex items-center'>
             <Select.Root name='region filter list'
+                open={open}
+                onOpenChange={handleOpenChange}
 
                 value={filterRegion || ''}
                 onValueChange={(value) => setRegionParam(r => {
