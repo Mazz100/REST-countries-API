@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-    transition: background-color;
-    transition-duration: 75ms;
+* {
+  transition: background-color 0.2s ease-in;
+}
+
+*:focus-visible {
+  outline: 3px solid hsl(0, 0%, 0%);
+  outline-offset: 2px;
 }
