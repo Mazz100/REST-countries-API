@@ -1,29 +1,15 @@
 import React, { useEffect } from "react";
 
 function CountriesSearchField({
-  setSearchParams,
+  onSearchChange,
   searchParams,
   searchCountry,
+  updateSearchState,
 }) {
-  const handleSearchInput = (e) => {
-    e.preventDefault();
-
-    //Updater function that adds value relatively
-    setSearchParams(
-      (prev) => {
-        prev.set("country", e.target.value);
-        return prev;
-      },
-      {
-        replace: true,
-      },
-    );
-  };
-
   useEffect(() => {
     if (searchParams.has("country") && searchCountry == "") {
       searchParams.delete("country");
-      setSearchParams(searchParams);
+      updateSearchState(searchParams);
     }
   }, [searchCountry]);
 
@@ -54,7 +40,7 @@ function CountriesSearchField({
           placeholder="Search for a country"
           id="searchCountry"
           value={searchCountry || ""}
-          onChange={handleSearchInput}
+          onChange={onSearchChange}
         />
       </div>
     </form>

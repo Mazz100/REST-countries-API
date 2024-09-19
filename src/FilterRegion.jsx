@@ -1,7 +1,7 @@
 import * as Select from "@radix-ui/react-select";
 import React, { useRef, useState } from "react";
 
-function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
+function FilterRegion({ onFilterChange, filterRegion, resetFilter }) {
   const regionList = [
     { id: 1, value: "Africa" },
     { id: 2, value: "America" },
@@ -18,10 +18,7 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
     if (!open) {
       clearTimeout(timeRef.current);
       setOpen(true);
-      console.log(`Timer is cleared: ${timeRef.current}`);
     } else {
-      console.log(`Timer is: ${timeRef.current}`);
-
       timeRef.current = setTimeout(() => {
         setOpen(false);
       }, 50);
@@ -35,24 +32,13 @@ function FilterRegion({ setRegionParam, regionParam, filterRegion }) {
         open={open}
         onOpenChange={handleOpenChange}
         value={filterRegion || ""}
-        onValueChange={(value) =>
-          setRegionParam(
-            (r) => {
-              r.set("region", value);
-              return r;
-            },
-            { replace: true },
-          )
-        }
+        onValueChange={onFilterChange}
       >
         {filterRegion && (
           <button
             type="button"
             aria-label="Delete Filter"
-            onClick={() => {
-              regionParam.delete("region");
-              setRegionParam(regionParam);
-            }}
+            onClick={resetFilter}
             className="mx-3 transform rounded-full bg-light-theme-elements p-2 shadow-md transition-all hover:scale-105 dark:bg-dark-theme-elements md:mx-0"
           >
             <svg

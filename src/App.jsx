@@ -2,9 +2,11 @@ import "./App.css";
 import HeaderPanel from "./HeaderPanel";
 import CountriesSearchField from "./CountrySearchField";
 import FilterRegion from "./FilterRegion";
-import CountriesCard from "./CountriesCard";
+/* import CountriesCard from "./CountriesCard"; */
 import { useSearchParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
+import LoadingSpinner from "./LoadingSpinner";
+const LazyCountries = lazy(() => import("./CountriesCard"));
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams({ country: "" });
@@ -27,6 +29,41 @@ function App() {
     };
   }, []);
 
+  const handleSearchInput = (e) => {
+    e.preventDefault();
+
+    //Updater function that adds value relatively
+    setSearchParams(
+      (prev) => {
+        prev.set("country", e.target.value);
+        return prev;
+      },
+      {
+        replace: true,
+      },
+    );
+  };
+
+  //Call setter for updating searchParam state
+  const updateSearchState = () => {
+    setSearchParams(searchParams);
+  };
+
+  const handleFilterRegion = (value) => {
+    setRegionParam(
+      (r) => {
+        r.set("region", value);
+        return r;
+      },
+      { replace: true },
+    );
+  };
+
+  const resetFilter = () => {
+    regionParam.delete("region");
+    setRegionParam(regionParam);
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-light-theme-background font-Neunito-font text-light-theme-text dark:bg-dark-theme-background dark:text-dark-theme-text">
       <header>
@@ -37,19 +74,24 @@ function App() {
         <div className="items-center justify-between md:flex">
           <CountriesSearchField
             searchParams={searchParams}
-            setSearchParams={setSearchParams}
             searchCountry={searchCountry}
+            onSearchChange={handleSearchInput}
+            updateSearchState={updateSearchState}
           />
           <FilterRegion
-            setRegionParam={setRegionParam}
             regionParam={regionParam}
             filterRegion={filterRegion}
+            onFilterChange={(value) => handleFilterRegion(value)}
+            resetFilter={resetFilter}
           />
         </div>
-        <CountriesCard
-          searchCountry={searchCountry}
-          filterRegion={filterRegion}
-        />
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <LazyCountries
+            searchCountry={searchCountry}
+            filterRegion={filterRegion}
+          />
+        </Suspense>
 
         {isScroll && (
           <button

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import React from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 function CountriesCard({ searchCountry, filterRegion }) {
   const countriesData = useLoaderData();
@@ -35,10 +35,10 @@ function CountriesCard({ searchCountry, filterRegion }) {
     .map((country) => {
       return (
         <li
-          className="mb-10 max-w-[18.75rem] cursor-pointer rounded-md bg-light-theme-elements shadow-md transition-[transform] will-change-transform hover:-translate-y-4 hover:shadow-lg dark:bg-dark-theme-elements md:mb-0" //This li acts as a card for each country
+          className="mb-10 max-w-[18.75rem] cursor-pointer rounded-md bg-light-theme-elements shadow-md transition-transform will-change-transform hover:-translate-y-4 hover:shadow-lg dark:bg-dark-theme-elements md:mb-0" //This li acts as a card for each country
           key={country.flags}
         >
-          <Link to={`/Details/${country.name}`} className="block rounded-md">
+          <Link to={`Details/${country.name}`} className="block rounded-md">
             <img
               className="max-h-[10.625rem] w-full rounded-tl-md rounded-tr-md object-cover"
               src={country.flags}
